@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="can-translate"
+    version="0.0.1">
+    <name>Can Translate</name>
+    <description>AngularJS Plugin</description>
+    <license>MIT</license>
+    <keywords>Translate, AngularJS, Localization, i18n l10n, internationalization, autotranslate</keywords>
+    <repo>https://github.com/7everen/can-translate.git</repo>
+    <issue>https://github.com/7everen/can-translate/issues</issue>
+
+</plugin>
