@@ -5,7 +5,7 @@
  * License: MIT
  */
 
-(function(window, angular, undefined) {'use strict';
+(function() {'use strict';
 
  angular.module('canTranslate', []).factory('$canTranslate', ['$rootScope',
   function($rootScope) {
@@ -27,4 +27,4 @@
   }])
 
       
-})(window, window.angular);
+})();

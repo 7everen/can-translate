@@ -1,23 +1,27 @@
 {
-  "name": "angular-sanitize",
-  "version": "1.5.0-build.4476+sha.e020b89",
-  "description": "AngularJS module for sanitizing HTML",
-  "main": "index.js",
+  "name": "can-translate",
+  "version": "0.0.1",
+  "description": "AngularJS module for simple translate to 100+ languages",
+  "main": "can-translate.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/angular/angular.js.git"
+    "url": "https://github.com/7everen/can-translate.git"
   },
   "keywords": [
     "angular",
+	"translate",
+	"localization",
+	"i18n",
+	"multi-language",
     "framework",
     "browser",
     "html",
     "client-side"
   ],
-  "author": "Angular Core Team <angular-core+npm@google.com>",
+  "author": "7everen <dlazarenko.ua@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/angular/angular.js/issues"
