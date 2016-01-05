@@ -5,10 +5,9 @@
  * License: MIT
  */
 
-(function () {
-    'use strict';
+(function(window, angular, undefined) {'use strict';
 
-    angular.module('canTranslate', []).factory('$canTranslate', ['$rootScope',
+ angular.module('canTranslate', []).factory('$canTranslate', ['$rootScope',
   function($rootScope) {
     return {
       _defLang:"en",
@@ -28,4 +27,4 @@
   }])
 
       
-})();
+})(window, window.angular);
