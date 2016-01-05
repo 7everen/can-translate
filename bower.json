@@ -1,0 +1,15 @@
+{
+  "name": "can-translate",
+  "version": "0.0.1-build.1",
+  "authors": [
+  '7everen <dlazarenko.ua@gmail.com>'
+  ],
+  "description": 'translate localization i18n angular l10n l20n translation internationalization AngularJS localisation internationalisation language multi-language directive',
+  "main": "./can-translate.js",
+  "homepage": "http://can-translate.appspot.com/",
+  "license": "MIT",
+  "ignore": [],
+  "dependencies": {
+    "angular": ">=1.3.0"
+  }
+}
