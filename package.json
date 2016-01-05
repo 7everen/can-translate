@@ -2,29 +2,65 @@
   "name": "can-translate",
   "version": "0.0.1",
   "description": "AngularJS module for simple translate to 100+ languages",
-  "main": "can-translate.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/7everen/can-translate.git"
-  },
+  "title": "can-translate",
   "keywords": [
     "angular",
+    "AngularJS",
+    "translation",
+    "localization",
+    "localisation",
+    "internationalization",
+    "internationalisation",
+    "i18n",
+    "l10n",
 	"translate",
-	"localization",
-	"i18n",
 	"multi-language",
     "framework",
     "browser",
     "html",
     "client-side"
   ],
-  "author": "7everen <dlazarenko.ua@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/angular/angular.js/issues"
+  "homepage": "https://github.com/7everen/can-translate",
+  "author": {
+    "name": "Dmytro Lazarenko",
+    "url": "can-translate.appspot.com"
   },
-  "homepage": "http://angularjs.org"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/7everen/can-translate.git"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "angular": "1.x.x"
+  },
+  "devDependencies": {
+    "angular": "1.4.8",
+    "uglify-js": "2.6.1"
+  },
+  "scripts": {
+    "test": "jshint *.js && karma start --single-run",
+    "build": "uglifyjs can-translate.js -c -m -o angular-localize.min.js --source-map angular-localize.min.js.map",
+    "preversion": "npm test",
+    "version": "npm run build && git add -A .",
+    "postversion": "git push --tags origin master && npm publish"
+  },
+  "main": "can-translate.js",
+  "jshintConfig": {
+    "bitwise": true,
+    "curly": true,
+    "eqeqeq": true,
+    "forin": true,
+    "freeze": true,
+    "immed": true,
+    "latedef": true,
+    "newcap": true,
+    "noarg": true,
+    "noempty": true,
+    "nonbsp": true,
+    "nonew": true,
+    "quotmark": true,
+    "undef": true,
+    "unused": true,
+    "strict": true
+  }
 }
