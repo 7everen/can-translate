@@ -1,36 +1,24 @@
-# packaged can-translate
+# can-translate
 Simple usage directive for AngularJS. auto translate to 100+ languages.
+A localization module for [AngularJS](http://angularjs.org/).
 
-This repo is for distribution on `npm` and `bower`. The source for this module is in the
-[main AngularJS repo](https://github.com/7everen/can-translate).
-Please file issues and pull requests against that repo.
 
-## Install
+## Getting started
 
-You can install this package either with `npm` or with `bower`.
-
-### npm
+### Module setup
+The easiest way to install the `can-translate` module is via
+[NPM](https://www.npmjs.com/):
 
 ```shell
-npm install can-translate
+npm install can-translate --save
 ```
 
-Then add `canTranslate` as a dependency for your app:
-
-```javascript
-angular.module('myApp', [require('can-translate')]);
-```
-
-### bower
-
-```shell
-bower install can-translate
-```
-
-Add a `<script>` to your `index.html`:
+You can then include `can-translate` after including its dependency,
+[angular](https://angularjs.org/) 
 
 ```html
-<script src="/bower_components/can-translate/can-translate.js"></script>
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/can-translate/can-translate.js"></script>
 ```
 
 Then add `canTranslate` as a dependency for your app:
@@ -39,29 +27,30 @@ Then add `canTranslate` as a dependency for your app:
 angular.module('myApp', ['canTranslate']);
 ```
 
-## Documentation
+## Usage Examples
 
-Documentation is available on the
-[Home docs site](can-translate.appspot.com).
+### can-translate directive
+
+#### Module using the element content
+Any HTML element which can contain text nodes can be localized simply by adding
+the `can-translate` attribute:
+
+```html
+<p can-translate>Set profile photo</p>
+```
+
+And when you want translate, run this function:
+
+```html
+module.controller('SomeCtrl', function($canTranslate, ....){
+$canTranslate.translate("fr");
+...
+}
+```
+
+Text `"Set profile photo!"` will be translated to French,
+the `can-translate` directive will replace the element content with the result from 
+`localstorage` or external translate service.
 
 ## License
-
-The MIT License
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+Released under the [MIT license](http://www.opensource.org/licenses/MIT).
