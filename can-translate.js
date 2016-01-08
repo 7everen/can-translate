@@ -10,9 +10,9 @@
  angular.module('canTranslate', []).factory('$canTranslate', ['$rootScope', '$http',
   function($rootScope, $http) {
     return {
-      _defLang:"en",
+      _defLang:"en-gb",
       _moduleKey:"",
-      _toLang:"en",
+      _toLang:"en-gb",
       init: function(moduleKey, defaultLanguage){
         this._moduleKey = moduleKey;
         this._defLang = defaultLanguage;
@@ -220,7 +220,7 @@
              this.clean();
            }
            var hash = this.hashFnv32a(this.clearText(value));
-           var result// = this.get($canTranslate._toLang, hash);
+           var result = this.get($canTranslate._toLang, hash);
            if(result){
              callback(value, this.changeCaseToOriginal(value, result));
            }else{
