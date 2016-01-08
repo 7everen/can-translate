@@ -1,5 +1,5 @@
 # can-translate
-Simple usage directive for AngularJS. auto translate to 20+ languages.
+Simple usage directive for AngularJS. auto translate to 60+ languages.
 A localization module for [AngularJS](http://angularjs.org/).
 
 
@@ -118,7 +118,7 @@ the `can-translate` directive will replace the element content with the result f
 `lo-la` -  Lao (Laos).  
 `mn-mn` -  Mongolian (Mongolia).  
 `ps-pk` -  Pashto (Afghanistan).  
-`uz-uz` -  Uzbek (Uzbekistan);
+`uz-uz` -  Uzbek (Uzbekistan).  
 Coming soon other languages.
 
 Json list with all languages [here](http://can-translate.appspot.com/languages.js).
