@@ -13,6 +13,12 @@ The easiest way to install the `can-translate` module is via
 npm install can-translate --save
 ```
 
+or [Bower](http://bower.io/):
+
+```shell
+bower install can-translate
+```
+
 You can then include `can-translate` after including its dependency,
 [angular](https://angularjs.org/) 
 
@@ -43,11 +49,11 @@ And when you want translate, run this function:
 
 ```html
 module.controller('SomeCtrl', function($canTranslate, ....){
-var moduleKey = "YOUR_PERSONAL_MODULE_KEY";
-var defaultLanguage = "en-gb";
-$canTranslate.init(moduleKey, defaultLanguage);
-$canTranslate.translate("fr-fr");
-...
+	var moduleKey = "YOUR_PERSONAL_MODULE_KEY";
+	var defaultLanguage = "en-gb";
+	$canTranslate.init(moduleKey, defaultLanguage);
+	$canTranslate.translate("fr-fr");
+	...
 }
 ```
 You can register module key [here](http://can-translate.appspot.com).
