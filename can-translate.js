@@ -5,7 +5,8 @@
  * License: MIT
  */
 
-(function() {'use strict';
+(function() {
+ 'use strict';
 
  angular.module('canTranslate', []).factory('$canTranslate', ['$rootScope', '$http',
   function($rootScope, $http) {
@@ -23,7 +24,7 @@
       }
     };
 
-  }]).directive('canTranslate', function($compile, _canTranslateStorage) {
+  }]).directive('canTranslate', function($compile, _canTranslateStorage, $rootScope) {
 
    var fromPath = function( path, obj ) {
      return path.split('.').reduce( function( prev, curr ) {
@@ -114,7 +115,7 @@
              });
            }
          };
-         scope.$on("canTranslateChangedLanguage", refresh);
+         $rootScope.$on("canTranslateChangedLanguage", refresh);
        };
      }
    };
@@ -285,6 +286,6 @@
        }
 
      };
-   }])
+   }]);
 
 })();
