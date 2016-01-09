@@ -86,28 +86,22 @@
              return;
            }
 
-           var arr = text.split(/([\s\.\,\?\!]+)/g);
-           arr = arr?arr:[];
-           for(var i=0; i<arr.length; i++){
-             if(considerBinding) {
-               arr[i] = setBindings(arr[i], scope);
-             }else{
-               var item = arr[i];
+           var txt = considerBinding?setBindings(text, scope):text;
+           var arr = txt.split(/(\{\{[^\}]+\}\})|([\:\;\"\'\.\,\?\!]+)/g);
+
+           for(var i=1; i<arr.length; i++){
+             if(!arr[i]){
                arr.splice(i, 1);
-               var lastPos = 0;
-               item.replace(patternReplace, function(str, p1, offset, s) {
-                 if(offset-lastPos>0) {
-                   arr.splice(i, 0, item.substring(lastPos, offset)); //before
-                   i++;
-                 }
-                 arr.splice(i, 0, str); //
-                 i++;
-                 lastPos = offset+str.length;
-                 return str;
-               });
-               if(item.length>lastPos)
-                arr.splice(i, 0, item.substring(lastPos));
+               i--;
+             }else if(arr[i].match(/^[\s\:\;\"\'\.\,\?\!]+$/)){
+               arr[i-1] = arr[i-1] + arr.splice(i, 1)[0];
+               i--;
              }
+           }
+
+           if(arr.length>0 && arr[0].match(/^[\s\:\;\"\'\.\,\?\!]+$/)){
+             var deleted = arr.splice(0, 1)[0];
+             arr[0] = deleted+arr[0];
            }
 
            var countTransl = arr.length;
@@ -133,7 +127,7 @@
        },
 
        get: function(lang, key, defaultValue) {
-         return $window.localStorage["_canTranslateModuleStorage_"+lang+"_"+key] || defaultValue;
+         return null;//$window.localStorage["_canTranslateModuleStorage_"+lang+"_"+key] || defaultValue;
        },
        hashFnv32a: function(str, asString, seed) {
          var i, l,
@@ -150,11 +144,11 @@
          return hval >>> 0;
        },
        dirtyPrefix: function(text) {
-         var p = text.match(/^[\s\.\,\?\!]+/);
+         var p = text.match(/^[\s\:\;\"\'\.\,\?\!]+/);
          return p?p[0]:"";
        },
        dirtySuffix: function(text) {
-         var s = text.match(/[\s\.\,\?\!]+$/);
+         var s = text.match(/[\s\:\;\"\'\.\,\?\!]+$/);
          return s?s[0]:"";
        },
        clearText: function(text){
@@ -190,7 +184,7 @@
          var suffix = this.dirtySuffix(original);
          var first = true;
          var allIsCapitalize = true;
-         original.replace(/[^\s\.\,\?\!]+/g, function(txt){
+         original.replace(/[^\s\:\;\"\'\.\,\?\!]+/g, function(txt){
            if(txt.charAt(0) == txt.charAt(0).toUpperCase()){
              if(first)
                firstIsUpper = true;
@@ -203,7 +197,7 @@
          });
 
          first = true;
-         translated = translated.replace(/[^\s\.\,\?\!]+/g, function(txt){
+         translated = translated.replace(/[^\s\:\;\"\'\.\,\?\!]+/g, function(txt){
            var result;
            if((firstIsUpper && first) || allIsCapitalize){
              result = txt.charAt(0).toUpperCase() + txt.substr(1);
@@ -219,7 +213,7 @@
 
        internTranslate: function(value, callback){
          var ths = this;
-         if($canTranslate._defLang == $canTranslate._toLang || value.match(/[\s\.\,\?\!]+/) || value.match(/\{\{[^\}]+\}\}/) || !value.length){
+         if($canTranslate._defLang == $canTranslate._toLang || value.match(/^[\s\:\;\"\'\.\,\?\!]+$/) || value.match(/\{\{[^\}]+\}\}/) || !value.length){
            callback(value, value);
          }else{
            if(this.lastLanguage != $canTranslate._toLang){
