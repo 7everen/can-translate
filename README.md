@@ -61,6 +61,24 @@ Text `"Set profile photo!"` will be translated to French,
 the `can-translate` directive will replace the element content with the result from 
 `localstorage` or external translate service.
 
+You can use bindings:
+
+```html
+<p can-translate>Set profile {{photoStr}}</p>
+```
+
+By default bindings not translate. If you want translate text with bindings, need set attribute `consider-binding` with value `true`.
+
+```html
+<p can-translate consider-binding="true">Set profile {{photoStr}}</p>
+```
+
+If you need personal translate for some language:
+
+```html
+<p can-translate fr-fr="Set French Profile">Set profile photo</p>
+```
+
 ##Supported Languages
 
 `en-gb` -  English (United Kingdom).  

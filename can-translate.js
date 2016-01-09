@@ -9,7 +9,7 @@
  'use strict';
 
  angular.module('canTranslate', []).factory('$canTranslate', ['$rootScope', '$http',
-  function($rootScope, $http) {
+  function($rootScope) {
     return {
       _defLang:"en-gb",
       _moduleKey:"",
@@ -24,12 +24,21 @@
       }
     };
 
-  }]).directive('canTranslate', function($compile, _canTranslateStorage, $rootScope) {
+  }]).directive('canTranslate', function($compile, $canTranslate, _canTranslateStorage, $rootScope) {
+
+   var patternReplace = /(\{\{[^\}]+\}\})/g;
 
    var fromPath = function( path, obj ) {
      return path.split('.').reduce( function( prev, curr ) {
        return prev[curr];
      }, obj || this );
+   };
+
+   var setBindings = function(item, scope){
+     return item.replace(patternReplace, function (str, p1, offset, s) {
+       var path = str.substr(2, str.length-4).trim();
+       return fromPath(path, scope);
+     });
    };
 
    return {
@@ -42,6 +51,7 @@
        var considerBinding = false;
        return function (scope, element, attrs, controller) {
 
+
          considerBinding = attrs.considerBinding=="true"?true:false;
          if(isFirst){
            isFirst = false;
@@ -52,7 +62,6 @@
                refresh();
              });
            });
-
          }
 
          var rendering = function(value){
@@ -71,18 +80,19 @@
          };
 
          var refresh = function(){
-           var pattern = /([\s\.\,\?\!]+)/g;
-           var patternReplace = /(\{\{[^\}]+\}\})/g;
-           var arr = text.split(pattern);
+           var attrLang = $canTranslate._toLang.substr(0, 2)+$canTranslate._toLang.substr(3, 1).toUpperCase()+$canTranslate._toLang.substr(4);
+           if(attrs[attrLang]){
+             rendering(setBindings(attrs[attrLang], scope));
+             return;
+           }
+
+           var arr = text.split(/([\s\.\,\?\!]+)/g);
            arr = arr?arr:[];
            for(var i=0; i<arr.length; i++){
-             var item = arr[i];
              if(considerBinding) {
-               arr[i] = item.replace(patternReplace, function (str, p1, offset, s) {
-                 var path = str.substr(2, str.length-4).trim();
-                 return fromPath(path, scope);
-               });
+               arr[i] = setBindings(arr[i], scope);
              }else{
+               var item = arr[i];
                arr.splice(i, 1);
                var lastPos = 0;
                item.replace(patternReplace, function(str, p1, offset, s) {
@@ -103,11 +113,7 @@
            var countTransl = arr.length;
            for(var i=0; i<arr.length; i++){
              _canTranslateStorage.internTranslate(arr[i], function(original, translate){
-               if(translate.match(patternReplace)){
-                 var path = translate.substr(2, translate.length-4).trim();
-                 translate = fromPath(path, scope);
-               }
-               arr[arr.indexOf(original)] = translate;
+               arr[arr.indexOf(original)] = setBindings(translate, scope);
                countTransl--;
                if(countTransl==0){
                  rendering(arr.join(""));
