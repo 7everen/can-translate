@@ -127,7 +127,7 @@
        },
 
        get: function(lang, key, defaultValue) {
-         return null;//$window.localStorage["_canTranslateModuleStorage_"+lang+"_"+key] || defaultValue;
+         return $window.localStorage["_canTranslateModuleStorage_"+lang+"_"+key] || defaultValue;
        },
        hashFnv32a: function(str, asString, seed) {
          var i, l,
